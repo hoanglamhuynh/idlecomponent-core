@@ -25,19 +25,6 @@ export default {
       type: String,
       required: true
     },
-    body: {
-      type: String,
-      required: false,
-      validator: (body) => {
-        try {
-          JSON.parse(body)
-
-          return true
-        } catch (error) {
-          return false
-        }
-      }
-    },
     headers: {
       type: String,
       required: false,
@@ -69,8 +56,7 @@ export default {
     try {
       const response = await fetch(this.url, {
         method: 'GET',
-        headers: JSON.parse(this.headers),
-        body: this.body
+        headers: JSON.parse(this.headers)
       })
 
       const transformed = await this.transformationFn.call(null, response)

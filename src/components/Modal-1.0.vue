@@ -6,11 +6,11 @@
       <div class="ic-modal-content-inner">
         <div class="ic-modal-header flex">
           <div class="flex-1">
-            <slot name="header">Header</slot>
+            <slot name="header" v-bind="scopedSlots">Header</slot>
           </div>
 
           <div class="flex-none">
-            <slot name="close">
+            <slot name="close" v-bind="scopedSlots">
               <button type="button" class="ic-modal-close" @click="closeModal">
                 <close-icon width="20" height="20" />
               </button>

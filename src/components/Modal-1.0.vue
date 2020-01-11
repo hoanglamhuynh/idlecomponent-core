@@ -21,8 +21,7 @@
 
         <div class="ic-modal-footer flex">
           <slot name="footer" v-bind="scopedSlots">
-            <button type="button" class="button">OK</button>
-            <button type="button" class="button">Close</button>
+            <button type="button" class="button" @click="closeModal">Close</button>
           </slot>
         </div>
       </div>
@@ -117,6 +116,7 @@ export default {
 .ic-modal-close {
   padding: 0;
   border: none;
+  cursor: pointer;
 }
 
 .ic-modal-content {

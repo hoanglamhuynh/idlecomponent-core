@@ -5,17 +5,16 @@
     <div class="ic-modal-content" v-if="isShowing">
       <div class="ic-modal-content-inner">
         <div class="ic-modal-header flex">
-          <div class="flex-1">
-            <slot name="header" v-bind="scopedSlots">Header</slot>
-          </div>
-
-          <div class="flex-none">
-            <slot name="close" v-bind="scopedSlots">
+          <slot name="header" v-bind="scopedSlots">
+            <div class="flex-1">
+              {{ title }}
+            </div>
+            <div class="flex-none">
               <button type="button" class="ic-modal-close" @click="closeModal">
                 <close-icon width="20" height="20" />
               </button>
-            </slot>
-          </div>
+            </div>
+          </slot>
         </div>
 
         <slot v-bind="scopedSlots" />
@@ -42,7 +41,22 @@ export default {
   components: {
     CloseIcon
   },
-  props: ['init', 'backdropDismiss'],
+  props: {
+    init: {
+      type: String,
+      required: false
+    },
+    backdropDismiss: {
+      type: Boolean,
+      required: false,
+      default: () => true
+    },
+    title: {
+      type: String,
+      required: false,
+      default: () => 'Default Header'
+    }
+  },
   mixins: [externalControllerMixin, vuexMixin, postalMixin, helperMixin],
   data () {
     return {
@@ -55,8 +69,7 @@ export default {
         isShowing: this.isShowing,
         closeModal: this.closeModal.bind(this),
         openModal: this.openModal.bind(this),
-        store: this.store,
-        postal: this.postal
+        ...this.defaultScopedSlots
       }
     }
   },
